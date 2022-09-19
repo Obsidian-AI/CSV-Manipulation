@@ -6,7 +6,6 @@ import time
 import colorama
 from colorama import *
 import numpy as np
-import datetime
 
 # Local
 from Utilities.keyController import keyController
