@@ -6,7 +6,6 @@ import time
 import colorama
 from colorama import *
 
-
 # Local
 from Utilities.keyController import keyController
 from Core.graphController import LineGraph
