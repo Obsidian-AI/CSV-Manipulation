@@ -19,6 +19,7 @@ def main():
     # Initialize Controllers
     pandasController = PandasManipulation(data)
     lineGraph = LineGraph()
+    print("test")
     
     try:
         ##########################################################################
