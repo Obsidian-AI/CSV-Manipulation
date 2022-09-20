@@ -5,7 +5,6 @@ import json
 import time
 import colorama
 from colorama import *
-import numpy as np
 
 # Local
 from Utilities.keyController import keyController
