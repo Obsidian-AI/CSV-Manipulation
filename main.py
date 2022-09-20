@@ -21,6 +21,7 @@ def main():
     pandasController = PandasManipulation(data)
     lineGraph = LineGraph()
     
+    
     try:
         ##########################################################################
         # TABLE MANIPULATION
