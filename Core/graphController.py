@@ -10,7 +10,7 @@ class LineGraph():
         self.dimensions = []
 
     def initialize(self, rows = 1, cols = 1):
-        self.fig = make_subplots(rows = rows, cols = cols)
+        self.fig = make_subplots(rows = rows, cols = cols, subplot_titles = ("Plot 1", "Plot 2"))
 
     def dimensionCheck(self):
         for i in range(len(self.dimensions)):
@@ -37,7 +37,7 @@ class LineGraph():
                     x = xAxis,
                     y = yAxis,
                     line = dict(color = 'black', width = 1),
-                    name = graphName if graphName else 'None'
+                    name = graphName if graphName else 'No Label',
                 ), row = row, col = col  # <------------ upper chart
             )
         except Exception:

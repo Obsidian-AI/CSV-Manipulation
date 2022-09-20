@@ -34,8 +34,9 @@ def main():
 
         # GRAPH CONTROLLER
         lineGraph.initialize(rows = 3, cols = 3)
-        lineGraph.graphLine(pandasController.finalData()['Close'], pandasController.finalData()['Open'], "Close --> Open", 1, 1)
-        lineGraph.graphLine(pandasController.finalData()['High'], pandasController.finalData()['Open'], "High --> Open", 1, 2)
+        lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['Close'], "Close", 1, 1)
+        lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['Open'], "High", 1, 2)
+        lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['High'], "Low", 1, 3)
         ##########################################################################
     except SyntaxError:
         print(f"{Fore.RED}[-]{Style.RESET_ALL} Incorrect Syntax Used")
