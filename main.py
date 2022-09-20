@@ -32,6 +32,7 @@ def main():
 
         # GRAPH CONTROLLER
         lineGraph.initialize(rows = 3, cols = 3)
+        lineGraph.graphLine(pandasController.finalData().index, [pandasController.finalData()['Close'], pandasController.finalData()['Open']], "Test", 2, 2)
         lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['Close'], "Close", 1, 1)
         lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['Open'], "High", 1, 2)
         lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['High'], "Low", 1, 3)

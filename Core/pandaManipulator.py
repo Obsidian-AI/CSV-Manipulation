@@ -19,7 +19,7 @@ class PandasManipulation():
         except KeyError:
             print(f"{Fore.RED}[-]{Style.RESET_ALL} Error Occurred when trying to add the following columns:")
             print(f"    {columns}")
-            print(f"{Fore.YELLOW} Try Checking Column Names")
+            print(f"{Fore.YELLOW} Try Checking Column Names{Style.RESET_ALL}")
             quit()
 
     def subtractColumns(self, columns, columnName = ""):
@@ -43,7 +43,7 @@ class PandasManipulation():
         except KeyError:
             print(f"{Fore.RED}[-]{Style.RESET_ALL} Error Occurred when trying to subtract the following columns:")
             print(f"    {columns}")
-            print(f"{Fore.YELLOW} Try Checking Column Names")
+            print(f"{Fore.YELLOW} Try Checking Column Names{Style.RESET_ALL}")
             quit()
 
     def multiplyColumns(self, columns, columnName = ""):
@@ -88,7 +88,7 @@ class PandasManipulation():
         except KeyError:
             print(f"{Fore.RED}[-]{Style.RESET_ALL} Error Occurred when trying to divide the following columns:")
             print(f"    {columns}")
-            print(f"{Fore.YELLOW} Try Checking Column Names")
+            print(f"{Fore.YELLOW} Try Checking Column Names{Style.RESET_ALL}")
             quit()
 
     def changeColumnHeader(self, oldName, newName):
@@ -99,7 +99,7 @@ class PandasManipulation():
                 return self.data
             else:
                 print(f"{Fore.RED}[-]{Style.RESET_ALL} Error Occurred when trying to rename {oldName} to {newName}")
-                print(f"{Fore.YELLOW} Try Checking if Original Name Column exists")
+                print(f"{Fore.YELLOW} Try Checking if Original Name Column exists{Style.RESET_ALL}")
                 quit()
 
         except:

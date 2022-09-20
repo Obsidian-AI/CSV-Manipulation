@@ -16,7 +16,7 @@ class LineGraph():
         for i in range(len(self.dimensions)):
             if self.dimensions.count(self.dimensions[i]) > 1:
                 print(f"{Fore.RED}[-]{Style.RESET_ALL}GRAPH CONTROLLER: Error Occurred Laying Graphs in Grid Pattern")
-                print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters")
+                print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters{Style.RESET_ALL}")
                 quit()
             
     def graphLine(self, xAxis, yAxis, graphName, row, col, colors = []):
@@ -42,7 +42,7 @@ class LineGraph():
             )
         except Exception:
             print(f"{Fore.RED}[-]{Style.RESET_ALL} GRAPH CONTROLLER: Row and Column Values Invalid")
-            print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters")
+            print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters{Style.RESET_ALL}")
             quit()
 
     def barGraph(self, xAxis, yAxis, graphName, row, col, colors = [], transparency = []):
