@@ -37,7 +37,7 @@ def main():
         lineGraph.graphLine(pandasController.finalData()['Close'], pandasController.finalData()['Open'], "Close --> Open", 1, 1)
         lineGraph.graphLine(pandasController.finalData()['High'], pandasController.finalData()['Open'], "High --> Open", 1, 2)
         ##########################################################################
-    except SyntaxError as e:
+    except SyntaxError:
         print(f"{Fore.RED}[-]{Style.RESET_ALL} Incorrect Syntax Used")
         print(f"{Fore.YELLOW} Try Checking the functions you entered and look at manual to see if properly entered")
 
