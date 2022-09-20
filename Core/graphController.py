@@ -5,7 +5,7 @@ from plotly.subplots import make_subplots
 from colorama import *
 import numpy as np
 # ---------- MAIN ----------- #
-class LineGraph():
+class GraphController():
     def __init__(self):
         self.dimensions = []
 
@@ -13,13 +13,16 @@ class LineGraph():
         self.fig = make_subplots(rows = rows, cols = cols, subplot_titles = ("Plot 1", "Plot 2"))
 
     def dimensionCheck(self):
+        """
+        Function used to check whether rows and columns are open or else warn the user
+        """
         for i in range(len(self.dimensions)):
             if self.dimensions.count(self.dimensions[i]) > 1:
                 print(f"{Fore.RED}[-]{Style.RESET_ALL}GRAPH CONTROLLER: Error Occurred Laying Graphs in Grid Pattern")
                 print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters{Style.RESET_ALL}")
                 quit()
             
-    def graphLine(self, xAxis, yAxis, graphName, row, col, colors = []):
+    def graphOneLine(self, xAxis, yAxis, graphName, row, col, colors = []):
         """
         Function that uses data imported to plot onto the graph
 
@@ -28,7 +31,7 @@ class LineGraph():
         graphName --> The Name of the Graph being appended
         row --> The Row Number [REQUIRED]
         col --> The Column Number [REQUIRED]
-        colors --> All colors are either auto assigned or there are no colors
+        colors --> All colors are either auto assigned or there are no colors [NOT ACTIVE]
         """
         self.dimensions.append(int(f"{row}{col}"))
         try:
@@ -45,8 +48,18 @@ class LineGraph():
             print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters{Style.RESET_ALL}")
             quit()
 
-    def barGraph(self, xAxis, yAxis, graphName, row, col, colors = [], transparency = []):
-        pass
+    def graphMultipleLines(self, xAxis, yAxis, graphName, row, col, colors = []):
+        """
+        Function that uses the data provided to graph multiple lines on one chart
+
+        xAxis --> The X Values [REQUIRED]
+        yAxis --> The Y Values [REQUIRED]
+        graphName --> The Name of the Graph
+        row --> The Row Number [REQUIRED]
+        col --> The Column Number [REQUIRED]
+        colors --> All colors are either auto assigned or can be manually assigned [NOT ACTIVE]
+        """
+        self.dimensions.append(int(f"{row}{col}"))
 
     def show(self):
         self.dimensionCheck()

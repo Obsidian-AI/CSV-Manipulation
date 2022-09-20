@@ -8,7 +8,7 @@ from colorama import *
 
 # Local
 from Utilities.keyController import keyController
-from Core.graphController import LineGraph
+from Core.graphController import GraphController
 from Core.pandaManipulator import PandasManipulation
 
 # ---------- MAIN SECTION ---------- #
@@ -18,7 +18,7 @@ def main():
 
     # Initialize Controllers
     pandasController = PandasManipulation(data)
-    lineGraph = LineGraph()
+    graphController = GraphController()
     
     try:
         ##########################################################################
@@ -31,12 +31,13 @@ def main():
         pandasController.dropEmptyRows()
 
         # GRAPH CONTROLLER
-        lineGraph.initialize(rows = 3, cols = 3)
-        lineGraph.graphLine(pandasController.finalData().index, [pandasController.finalData()['Close'], pandasController.finalData()['Open']], "Test", 2, 2)
-        lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['Close'], "Close", 1, 1)
-        lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['Open'], "High", 1, 2)
-        lineGraph.graphLine(pandasController.finalData().index, pandasController.finalData()['High'], "Low", 1, 3)
+        graphController.initialize(rows = 3, cols = 3)
+        graphController.graphOneLine(pandasController.finalData().index, pandasController.finalData()['Close'], "Close", 1, 1)
+        graphController.graphOneLine(pandasController.finalData().index, pandasController.finalData()['Open'], "High", 1, 2)
+        graphController.graphOneLine(pandasController.finalData().index, pandasController.finalData()['High'], "Low", 1, 3)
+        graphController.graphMultipleLines(pandasController.finalData().index, [pandasController.finalData()['Close'], pandasController.finalData()['Open']], "Multiline Graph", 2, 1)
         ##########################################################################
+
     except SyntaxError:
         print(f"{Fore.RED}[-]{Style.RESET_ALL} Incorrect Syntax Used")
         print(f"{Fore.YELLOW} Try Checking the functions you entered and look at manual to see if properly entered")
@@ -44,7 +45,7 @@ def main():
 
     # Final Data
     final = pandasController.finalData()
-    lineGraph.show()
+    graphController.show()
 
     # Save file
     final.to_csv(f'Output/output.csv', index = False, header = True)
