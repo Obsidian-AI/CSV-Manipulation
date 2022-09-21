@@ -28,14 +28,21 @@ def main():
         pandasController.multiplyColumns(['Open', 'High', 'Low'], columnName = 'Multiply Columns')
         pandasController.divideColumns(['Open', 'High', 'Low'], columnName = 'Divide Columns')
         pandasController.changeColumnHeader('Volume', 'Testing Set')
+        pandasController.duplicateColumn('Testing Set', 'Volume')
         pandasController.dropEmptyRows()
+        ##########################################################################
 
+        data = pandasController.finalData()
+
+        ##########################################################################
         # GRAPH CONTROLLER
         graphController.initialize(rows = 3, cols = 3)
-        graphController.graphOneLine(pandasController.finalData().index, pandasController.finalData()['Close'], "Close", 1, 1)
-        graphController.graphOneLine(pandasController.finalData().index, pandasController.finalData()['Open'], "High", 1, 2)
-        graphController.graphOneLine(pandasController.finalData().index, pandasController.finalData()['High'], "Low", 1, 3)
-        graphController.graphMultipleLines(pandasController.finalData().index, [pandasController.finalData()['Close'], pandasController.finalData()['Open']], "Multiline Graph", 2, 1)
+        graphController.graphOneLine(data.index, data['Close'], "Single Line Close", 1, 1, color = 'blue')
+        graphController.graphOneLine(data.index, data['Open'], "Single Line High", 1, 2)
+        graphController.graphOneLine(data.index, data['High'], "Single Line Low", 1, 3)
+        graphController.graphMultipleLines(data.index, [data['Close'], data['Testing Set']], ["Multiline Close", "Multiline Volume"], 2, 1)
+        graphController.graphMultipleLines(data.index, [data['Close'], data['Testing Set']], ["Multiline Close", "Multiline Volume"], 2, 2, colors = ['green', 'cyan'])
+        graphController.graphMultipleLines(data.index, [data['Close'], data['Testing Set']], ["Multiline Close", "Multiline Volume"], 2, 3, colors = ['orange', 'white'])
         ##########################################################################
 
     except SyntaxError:

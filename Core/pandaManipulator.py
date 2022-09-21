@@ -1,5 +1,6 @@
 # ---------- LIBRARIES ---------- #
 # Global
+from cmath import e
 import pandas as pd
 import colorama
 from colorama import *
@@ -112,6 +113,15 @@ class PandasManipulation():
         
         except:
             print(f"{Fore.RED}[-]{Style.RESET_ALL} Unknown Error Occurred Trying to drop empty table values")
+
+    def duplicateColumn(self, columnToDupe, newColumnName):
+        try:
+            self.data[newColumnName] = self.data[columnToDupe]
+            print(f"{Fore.GREEN}[+]{Style.RESET_ALL} Successfully Duplicated {columnToDupe} to {newColumnName}")
+        except KeyError as e:
+            print(f"{Fore.RED}[-]{Style.RESET_ALL} Error Occurred Trying to duplicate column {Fore.BLUE}{e}{Style.RESET_ALL}")
+            print(f"    {Fore.YELLOW}Try Checking whether column {e} exists{Style.RESET_ALL}")
+            quit()
 
     def finalData(self):
         return self.data
