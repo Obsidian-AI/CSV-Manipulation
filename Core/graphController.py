@@ -1,4 +1,5 @@
 # ---------- LIBRARIES ---------- #
+from __future__ import annotations
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -11,7 +12,11 @@ class GraphController():
         self.dimensions = []
 
     def initialize(self, rows = 1, cols = 1):
-        self.fig = make_subplots(rows = rows, cols = cols, shared_xaxes = False, shared_yaxes = False)
+        try:
+            self.fig = make_subplots(rows = rows, cols = cols, shared_xaxes = False, shared_yaxes = False)
+            print(f"{Fore.BLUE}GRAPHING MODULE:{Style.RESET_ALL}")
+        except Exception:
+            print(f"{Fore.RED}[-]{Style.RESET_ALL} Unknown Error Occurred Trying to Initialize Graphing Module")
 
     def dimensionCheck(self):
         """
@@ -23,7 +28,7 @@ class GraphController():
                 print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters{Style.RESET_ALL}")
                 quit()
             
-    def graphOneLine(self, xAxis, yAxis, lineName, row, col, xLabel = "", yLabel = "", color = ""):
+    def graphOneLine(self, xAxis, yAxis, lineName, row, col, graphName = "", color = ""):
         """
         Function that uses data imported to plot onto the graph
 
@@ -36,7 +41,7 @@ class GraphController():
         xLabel --> Label the X Axis of the subplot
         yLabel --> Label the Y Axis of the subplot
         """
-        
+
         self.dimensions.append(int(f"{row}{col}"))
         try:
             self.fig.append_trace(
@@ -46,6 +51,18 @@ class GraphController():
                     line = dict(color = color if color != "" else 'black', width = 1),
                     name = lineName if lineName else 'No Label',
                 ), row = row, col = col  # <------------ upper chart
+            )
+
+            self.fig['layout'].update(
+                annotations = [
+                    dict(
+                        xref = f'x{row}',
+                        yref = f'y{col}',
+                        text = "TEST1",
+                        font_size=20,
+                        showarrow=False
+                    )
+                ]
             )
 
         except ValueError as e:
