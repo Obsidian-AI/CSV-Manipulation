@@ -1,6 +1,5 @@
 # ---------- LIBRARIES ---------- #
 # Global
-from cmath import e
 import pandas as pd
 import colorama
 from colorama import *
