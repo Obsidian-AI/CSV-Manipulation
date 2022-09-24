@@ -1,5 +1,4 @@
 # ---------- LIBRARIES ---------- #
-from __future__ import annotations
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -12,11 +11,15 @@ class GraphController():
         self.dimensions = []
 
     def initialize(self, rows = 1, cols = 1):
+        """
+        Function that initializes the number of subplots
+        """
         try:
-            self.fig = make_subplots(rows = rows, cols = cols, shared_xaxes = False, shared_yaxes = False)
-            print(f"{Fore.BLUE}GRAPHING MODULE:{Style.RESET_ALL}")
+            self.fig = make_subplots(rows = rows, cols = cols, subplot_titles = ("Plot 1", "Plot 2", "Plot 3", "Plot 4", "Plot 5", "Plot 6", "Plot 7"))
+            print(f"\n{Fore.BLUE}GRAPHING MODULE:{Style.RESET_ALL}")
         except Exception:
             print(f"{Fore.RED}[-]{Style.RESET_ALL} Unknown Error Occurred Trying to Initialize Graphing Module")
+            quit()
 
     def dimensionCheck(self):
         """
@@ -28,7 +31,7 @@ class GraphController():
                 print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters{Style.RESET_ALL}")
                 quit()
             
-    def graphOneLine(self, xAxis, yAxis, lineName, row, col, graphName = "", color = ""):
+    def graphOneLineChart(self, xAxis, yAxis, lineName, row, col, graphName = "", color = ""):
         """
         Function that uses data imported to plot onto the graph
 
@@ -50,20 +53,9 @@ class GraphController():
                     y = yAxis,
                     line = dict(color = color if color != "" else 'black', width = 1),
                     name = lineName if lineName else 'No Label',
-                ), row = row, col = col  # <------------ upper chart
+                ), row = row, col = col
             )
-
-            self.fig['layout'].update(
-                annotations = [
-                    dict(
-                        xref = f'x{row}',
-                        yref = f'y{col}',
-                        text = "TEST1",
-                        font_size=20,
-                        showarrow=False
-                    )
-                ]
-            )
+            print(f"{Fore.GREEN}[+]{Style.RESET_ALL} Successfully Created Single Line Graph on Row: {row} and Column: {col}")
 
         except ValueError as e:
             print(f"{Fore.RED}[-]{Style.RESET_ALL} GRAPH CONTROLLER: Error Occured Trying to Graph {Fore.BLUE}Single Line Graph{Style.RESET_ALL} at {Fore.RED}Row: {row}, Column: {col}{Style.RESET_ALL}")
@@ -78,7 +70,7 @@ class GraphController():
         except Exception as e:
             print(e)
 
-    def graphMultipleLines(self, xAxis, yAxis, lineName, row, col, colors = []):
+    def graphMultipleLinesChart(self, xAxis, yAxis, lineName, row, col, colors = []):
         """
         Function that uses the data provided to graph multiple lines on one chart
 
@@ -99,13 +91,66 @@ class GraphController():
                         y = yAxis[i],
                         line = dict(color = tempColors[i] if len(yAxis) != len(colors) else colors[i], width = 1),
                         name = lineName[i]
-                    ), row = row, col = col  # <------------ upper chart
+                    ), row = row, col = col
                 )
+            print(f"{Fore.GREEN}[+]{Style.RESET_ALL} Successfully Created Multiline Graph on Row: {row} and Column: {col}")
+
         except IndexError as e:
             print(e)
             print(f"{Fore.RED}[-]{Style.RESET_ALL} GRAPH CONTROLLER: Error Occurred Trying to Graph {Fore.BLUE}Multi Line Graph{Style.RESET_ALL} at {Fore.RED}Row: {row}, Column: {col}{Style.RESET_ALL}")
             print(f"    {Fore.YELLOW}Try Checking Row and Column Parameters{Style.RESET_ALL}")
             quit()
+
+    def graphHorizontalLine(self, value, row, col, color = 'black', lineType = 'dash', thickness = 2):
+        """
+        Function that graphs a horizontal line at a y value on any graph of the user's choice
+
+        value --> The Y Value for line
+        row --> The Row Number
+        col --> The Column Number
+        color --> The color of the line
+        lineType --> The type of line that you would like to add
+        thickness --> The amount of thickness you would like to add within a line
+        """
+        try:
+            self.fig.add_hline(y = value, line_dash = lineType, row = row, col = col, line_color = color, line_width = thickness)
+            print(f"{Fore.GREEN}[+]{Style.RESET_ALL} Successfully Create a Horizontal Line on Row: {row} and Column: {col}")
+
+        except Exception:
+            print(f"{Fore.RED}[-]{Style.RESET_ALL} GRAPH CONTROLLER: Error Occurred Trying to Graph Horizontal Line on Row: {row} and Column {col}")
+            print(f"    {Fore.YELLOW}Try Checking the Function Row and Column Parameters{Style.RESET_ALL}")
+            quit()
+
+    def graphBarGraph(self, x, y, row, col, name = "", errorInterval = [], colors = []):
+        """
+        Function that creates a bar graph with the ability to add error intervals
+
+        x --> X Axis Names [REQUIRED]
+        y --> The Data [REQUIRED]
+        row --> The Row Number [REQUIRED]
+        col --> The Column Number [REQUIRED]
+        errorInterval --> Add Confidence Intervals with the error bar range
+        colors --> Set the Colors of the graph [NOT ACTIVE]
+        """
+        try:
+            self.fig.append_trace(
+                go.Bar(
+                    name = name if name != "" else None,
+                    x = x,
+                    y = y,
+                    error_y = dict(type='data', array = errorInterval) if errorInterval != [] else None
+                ), row = row, col = col
+            )
+
+            if f"{row}{col}" not in self.dimensions:
+                self.dimensions.append(f"{row}{col}")
+                print(f"{Fore.GREEN}[+]{Style.RESET_ALL} Successfully Created Bar Graph on Row: {row} and Column: {col}")
+            else:
+                print(f"{Fore.GREEN}[+]{Style.RESET_ALL} Successfully Modified Bar Graph on Row: {row} and Column: {col}")
+
+        except Exception:
+            print(f"{Fore.RED}[-]{Style.RESET_ALL} Error Occurred Trying to Create Bar Graph on Row: {row} and Column {col}")
+            exit()
 
     def show(self):
         self.dimensionCheck()
@@ -115,6 +160,7 @@ class GraphController():
                 font_family = 'Monospace',
                 font_color =  '#000000',
                 font_size = 20,
+                barmode='group',
                 xaxis = dict(
                     rangeslider = dict(
                         visible = False
